@@ -1,9 +1,9 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
 	experimental: {
-		reactCompiler: true,
-		ppr: 'incremental',
-		after: true,
+		// reactCompiler: true,
+		// ppr: 'incremental',
+		// after: true,
 	},
 };
 
