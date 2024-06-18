@@ -16,6 +16,8 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import JSConfetti from 'js-confetti';
 import { useEffect, useRef } from 'react';
+import { useMutation } from '@tanstack/react-query';
+import { Loader2 } from 'lucide-react';
 
 const waitlistFormSchema = z.object({
 	first_name: z.string().min(2, { message: 'First name is too short' }),
@@ -30,6 +32,31 @@ export const WaitlistForm = () => {
 		jsConfettiRef.current = new JSConfetti();
 	}, []);
 
+	const { mutate, isError, isPending, isSuccess } = useMutation({
+		mutationFn: async (data: z.infer<typeof waitlistFormSchema>) => {
+			const res = await fetch('https://api.getwaitlist.com/api/v1/signup', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+					Authorization: `Bearer ${process.env.NEXT_PUBLIC_WAITLIST_API_KEY}`,
+				},
+				body: JSON.stringify({
+					...data,
+					waitlist_id: process.env.NEXT_PUBLIC_WAITLIST_ID,
+					referral_link: window.location.toString(),
+				}),
+			});
+
+			if (res.ok) {
+				if (jsConfettiRef.current) {
+					await jsConfettiRef.current.addConfetti();
+				}
+			} else {
+				throw new Error('Failed to sign up');
+			}
+		},
+	});
+
 	const form = useForm<z.infer<typeof waitlistFormSchema>>({
 		resolver: zodResolver(waitlistFormSchema),
 		defaultValues: {
@@ -40,24 +67,7 @@ export const WaitlistForm = () => {
 	});
 
 	const onSubmit = form.handleSubmit(async (data) => {
-		const res = await fetch('https://api.getwaitlist.com/api/v1/signup', {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json',
-				Authorization: `Bearer ${process.env.NEXT_PUBLIC_WAITLIST_API_KEY}`,
-			},
-			body: JSON.stringify({
-				...data,
-				waitlist_id: process.env.NEXT_PUBLIC_WAITLIST_ID,
-				referral_link: window.location.toString(),
-			}),
-		});
-
-		if (res.ok) {
-			if (jsConfettiRef.current) {
-				await jsConfettiRef.current.addConfetti();
-			}
-		}
+		mutate(data);
 	});
 
 	return (
@@ -102,8 +112,22 @@ export const WaitlistForm = () => {
 						</FormItem>
 					)}
 				/>
-				<Button type="submit" className="w-full">
-					Submit
+				<Button
+					type="submit"
+					variant={isSuccess ? 'secondary' : 'default'}
+					className="w-full"
+					disabled={isPending}
+				>
+					{isPending ? (
+						<>
+							<Loader2 className="mr-2 h-4 w-4 animate-spin" />
+							Submitting
+						</>
+					) : isSuccess ? (
+						'Submitted!'
+					) : (
+						'Submit'
+					)}
 				</Button>
 			</form>
 		</Form>

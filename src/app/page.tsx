@@ -1,4 +1,10 @@
 import { WaitlistForm } from '@/components/waitlist-form';
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+	title: 'Waitlist | Voting System',
+	description: 'Sign up to the waitlist for the voting system.',
+};
 
 const Home = () => {
 	return (
