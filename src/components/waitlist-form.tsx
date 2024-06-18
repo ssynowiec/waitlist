@@ -44,7 +44,9 @@ export const WaitlistForm = () => {
 			}),
 		});
 
-		const json = await res.json();
+		if (res.ok) {
+			console.log('Success');
+		}
 	});
 
 	return (
