@@ -8,6 +8,15 @@ importers:
 
   .:
     dependencies:
+      '@hookform/resolvers':
+        specifier: ^3.6.0
+        version: 3.6.0(react-hook-form@7.52.0(react@19.0.0-rc-f994737d14-20240522))
+      '@radix-ui/react-label':
+        specifier: 2.1.0-rc.6
+        version: 2.1.0-rc.6(@types/react-dom@18.3.0)(@types/react@18.3.3)(react-dom@19.0.0-rc-f994737d14-20240522(react@19.0.0-rc-f994737d14-20240522))(react@19.0.0-rc-f994737d14-20240522)
+      '@radix-ui/react-slot':
+        specifier: 1.1.0-rc.6
+        version: 1.1.0-rc.6(@types/react@18.3.3)(react@19.0.0-rc-f994737d14-20240522)
       babel-plugin-react-compiler:
         specifier: 0.0.0-experimental-938cd9a-20240601
         version: 0.0.0-experimental-938cd9a-20240601
@@ -29,6 +38,9 @@ importers:
       react-dom:
         specifier: 19.0.0-rc-f994737d14-20240522
         version: 19.0.0-rc-f994737d14-20240522(react@19.0.0-rc-f994737d14-20240522)
+      react-hook-form:
+        specifier: ^7.52.0
+        version: 7.52.0(react@19.0.0-rc-f994737d14-20240522)
       sass:
         specifier: ^1.77.6
         version: 1.77.6
@@ -38,6 +50,9 @@ importers:
       tailwindcss-animate:
         specifier: ^1.0.7
         version: 1.0.7(tailwindcss@3.4.4)
+      zod:
+        specifier: ^3.23.8
+        version: 3.23.8
     devDependencies:
       '@types/node':
         specifier: ^20
@@ -121,6 +136,11 @@ packages:
   '@eslint/js@8.57.0':
     resolution: {integrity: sha512-Ys+3g2TaW7gADOJzPt83SJtCDhMjndcDMFVQ/Tj9iA1BfJzFKD9mAUXT3OenpuPHbI6P/myECxRJrofUsDx/5g==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
+
+  '@hookform/resolvers@3.6.0':
+    resolution: {integrity: sha512-UBcpyOX3+RR+dNnqBd0lchXpoL8p4xC21XP8H6Meb8uve5Br1GCnmg0PcBoKKqPKgGu9GHQ/oygcmPrQhetwqw==}
+    peerDependencies:
+      react-hook-form: ^7.0.0
 
   '@humanwhocodes/config-array@0.11.14':
     resolution: {integrity: sha512-3T8LkOmg45BV5FICb15QQMsyUSWrQ8AygVfC7ZG32zOalnqrilm018ZVCw0eapXux8FtA33q8PSRSstjee3jSg==}
@@ -349,6 +369,50 @@ packages:
   '@pkgjs/parseargs@0.11.0':
     resolution: {integrity: sha512-+1VkjdD0QBLPodGrJUeqarH8VAIvQODIbwh9XpP5Syisf7YoQgsJKPNFoqqLQlu+VQ/tVSshMR6loPMn8U+dPg==}
     engines: {node: '>=14'}
+
+  '@radix-ui/react-compose-refs@1.1.0-rc.6':
+    resolution: {integrity: sha512-binUwDiCIJAiQetkNlkelVRzJPwKmplw8/4qiRGWcAIPujxNzrQeLkv/4GRsQm8qDhSqV5KlBTUkkkBCgrScQw==}
+    peerDependencies:
+      '@types/react': '*'
+      react: ^16.8 || ^17.0 || ^18.0 || ^19.0
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+
+  '@radix-ui/react-label@2.1.0-rc.6':
+    resolution: {integrity: sha512-T2f6amCjLmMkQuJYWi+tBwI9gl/SgMFCYH+pOeG8M/IhF1WKjV3uDH3vSlRaZQij8zrS86L1YDXlp3cbN50zFA==}
+    peerDependencies:
+      '@types/react': '*'
+      '@types/react-dom': '*'
+      react: ^16.8 || ^17.0 || ^18.0 || ^19.0
+      react-dom: ^16.8 || ^17.0 || ^18.0 || ^19.0
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+      '@types/react-dom':
+        optional: true
+
+  '@radix-ui/react-primitive@2.0.0-rc.3':
+    resolution: {integrity: sha512-jkjA/IUpj7XNyfzfERnl0wYr2LxwsXR4t8pzbpM++dqnW27yxp8nN9y0v6pnWkVhXIdbEZK+yKQGu7CQZG48Ig==}
+    peerDependencies:
+      '@types/react': '*'
+      '@types/react-dom': '*'
+      react: ^16.8 || ^17.0 || ^18.0 || ^19.0
+      react-dom: ^16.8 || ^17.0 || ^18.0 || ^19.0
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+      '@types/react-dom':
+        optional: true
+
+  '@radix-ui/react-slot@1.1.0-rc.6':
+    resolution: {integrity: sha512-DlsVYQzZM8AKOrJJMkeNdZWw//Buv6wB+i244/APFH8bf814n1fSAqbEy0SMew2f8atgMEhD9o/+SqMpSoo+pg==}
+    peerDependencies:
+      '@types/react': '*'
+      react: ^16.8 || ^17.0 || ^18.0 || ^19.0
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
 
   '@rushstack/eslint-patch@1.10.3':
     resolution: {integrity: sha512-qC/xYId4NMebE6w/V33Fh9gWxLgURiNYgVNObbJl2LZv0GUUItCcCqC5axQSwRaAgaxl2mELq1rMzlswaQ0Zxg==}
@@ -1579,6 +1643,12 @@ packages:
     peerDependencies:
       react: 19.0.0-rc-f994737d14-20240522
 
+  react-hook-form@7.52.0:
+    resolution: {integrity: sha512-mJX506Xc6mirzLsmXUJyqlAI3Kj9Ph2RhplYhUVffeOQSnubK2uVqBFOBJmvKikvbFV91pxVXmDiR+QMF19x6A==}
+    engines: {node: '>=12.22.0'}
+    peerDependencies:
+      react: ^16.8.0 || ^17 || ^18 || ^19
+
   react-is@16.13.1:
     resolution: {integrity: sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==}
 
@@ -1980,6 +2050,10 @@ snapshots:
 
   '@eslint/js@8.57.0': {}
 
+  '@hookform/resolvers@3.6.0(react-hook-form@7.52.0(react@19.0.0-rc-f994737d14-20240522))':
+    dependencies:
+      react-hook-form: 7.52.0(react@19.0.0-rc-f994737d14-20240522)
+
   '@humanwhocodes/config-array@0.11.14':
     dependencies:
       '@humanwhocodes/object-schema': 2.0.3
@@ -2146,6 +2220,37 @@ snapshots:
 
   '@pkgjs/parseargs@0.11.0':
     optional: true
+
+  '@radix-ui/react-compose-refs@1.1.0-rc.6(@types/react@18.3.3)(react@19.0.0-rc-f994737d14-20240522)':
+    dependencies:
+      react: 19.0.0-rc-f994737d14-20240522
+    optionalDependencies:
+      '@types/react': 18.3.3
+
+  '@radix-ui/react-label@2.1.0-rc.6(@types/react-dom@18.3.0)(@types/react@18.3.3)(react-dom@19.0.0-rc-f994737d14-20240522(react@19.0.0-rc-f994737d14-20240522))(react@19.0.0-rc-f994737d14-20240522)':
+    dependencies:
+      '@radix-ui/react-primitive': 2.0.0-rc.3(@types/react-dom@18.3.0)(@types/react@18.3.3)(react-dom@19.0.0-rc-f994737d14-20240522(react@19.0.0-rc-f994737d14-20240522))(react@19.0.0-rc-f994737d14-20240522)
+      react: 19.0.0-rc-f994737d14-20240522
+      react-dom: 19.0.0-rc-f994737d14-20240522(react@19.0.0-rc-f994737d14-20240522)
+    optionalDependencies:
+      '@types/react': 18.3.3
+      '@types/react-dom': 18.3.0
+
+  '@radix-ui/react-primitive@2.0.0-rc.3(@types/react-dom@18.3.0)(@types/react@18.3.3)(react-dom@19.0.0-rc-f994737d14-20240522(react@19.0.0-rc-f994737d14-20240522))(react@19.0.0-rc-f994737d14-20240522)':
+    dependencies:
+      '@radix-ui/react-slot': 1.1.0-rc.6(@types/react@18.3.3)(react@19.0.0-rc-f994737d14-20240522)
+      react: 19.0.0-rc-f994737d14-20240522
+      react-dom: 19.0.0-rc-f994737d14-20240522(react@19.0.0-rc-f994737d14-20240522)
+    optionalDependencies:
+      '@types/react': 18.3.3
+      '@types/react-dom': 18.3.0
+
+  '@radix-ui/react-slot@1.1.0-rc.6(@types/react@18.3.3)(react@19.0.0-rc-f994737d14-20240522)':
+    dependencies:
+      '@radix-ui/react-compose-refs': 1.1.0-rc.6(@types/react@18.3.3)(react@19.0.0-rc-f994737d14-20240522)
+      react: 19.0.0-rc-f994737d14-20240522
+    optionalDependencies:
+      '@types/react': 18.3.3
 
   '@rushstack/eslint-patch@1.10.3': {}
 
@@ -3532,6 +3637,10 @@ snapshots:
     dependencies:
       react: 19.0.0-rc-f994737d14-20240522
       scheduler: 0.25.0-rc-f994737d14-20240522
+
+  react-hook-form@7.52.0(react@19.0.0-rc-f994737d14-20240522):
+    dependencies:
+      react: 19.0.0-rc-f994737d14-20240522
 
   react-is@16.13.1: {}
 
