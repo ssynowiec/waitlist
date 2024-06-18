@@ -18,8 +18,8 @@ import JSConfetti from 'js-confetti';
 import { useEffect, useRef } from 'react';
 
 const waitlistFormSchema = z.object({
-	first_name: z.string(),
-	last_name: z.string(),
+	first_name: z.string().min(2, { message: 'First name is too short' }),
+	last_name: z.string().min(2, { message: 'Last name is too short' }),
 	email: z.string().email(),
 });
 
@@ -49,6 +49,7 @@ export const WaitlistForm = () => {
 			body: JSON.stringify({
 				...data,
 				waitlist_id: process.env.NEXT_PUBLIC_WAITLIST_ID,
+				referral_link: window.location.toString(),
 			}),
 		});
 
@@ -61,7 +62,7 @@ export const WaitlistForm = () => {
 
 	return (
 		<Form {...form}>
-			<form onSubmit={onSubmit} className="space-y-8">
+			<form onSubmit={onSubmit} className="w-1/5 space-y-4">
 				<FormField
 					control={form.control}
 					name="first_name"
