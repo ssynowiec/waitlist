@@ -32,7 +32,7 @@ export const WaitlistForm = () => {
 		jsConfettiRef.current = new JSConfetti();
 	}, []);
 
-	const { mutate, isError, isPending, isSuccess } = useMutation({
+	const { mutate, isPending, isSuccess } = useMutation({
 		mutationFn: async (data: z.infer<typeof waitlistFormSchema>) => {
 			const res = await fetch('https://api.getwaitlist.com/api/v1/signup', {
 				method: 'POST',
