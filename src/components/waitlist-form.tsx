@@ -14,6 +14,8 @@ import {
 import { Input } from '@/components/ui/input';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import JSConfetti from 'js-confetti';
+import { useEffect, useRef } from 'react';
 
 const waitlistFormSchema = z.object({
 	first_name: z.string(),
@@ -22,6 +24,12 @@ const waitlistFormSchema = z.object({
 });
 
 export const WaitlistForm = () => {
+	const jsConfettiRef = useRef<JSConfetti>();
+
+	useEffect(() => {
+		jsConfettiRef.current = new JSConfetti();
+	}, []);
+
 	const form = useForm<z.infer<typeof waitlistFormSchema>>({
 		resolver: zodResolver(waitlistFormSchema),
 		defaultValues: {
@@ -45,7 +53,9 @@ export const WaitlistForm = () => {
 		});
 
 		if (res.ok) {
-			console.log('Success');
+			if (jsConfettiRef.current) {
+				await jsConfettiRef.current.addConfetti();
+			}
 		}
 	});
 
@@ -91,7 +101,9 @@ export const WaitlistForm = () => {
 						</FormItem>
 					)}
 				/>
-				<Button type="submit">Submit</Button>
+				<Button type="submit" className="w-full">
+					Submit
+				</Button>
 			</form>
 		</Form>
 	);
