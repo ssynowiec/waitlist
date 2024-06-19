@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import './globals.scss';
 import type { ReactNode } from 'react';
 import { Provider } from '@/components/provider';
+import { Footer } from '@/components/footer';
 
 export const metadata: Metadata = {
 	title: 'Create Next App',
@@ -15,8 +16,9 @@ const RootLayout = ({
 }>) => {
 	return (
 		<html lang="en">
-			<body>
+			<body className="flex min-h-screen flex-col">
 				<Provider>{children}</Provider>
+				<Footer />
 			</body>
 		</html>
 	);
