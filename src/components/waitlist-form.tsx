@@ -30,6 +30,32 @@ const waitlistFormSchema = z.object({
 	}),
 });
 
+const successSubmitResponseSchema = z.object({
+	amount_referred: z.number(),
+	created_at: z.string(),
+	email: z.string().email(),
+	priority: z.number(),
+	referral_link: z.string(),
+	referral_token: z.string(),
+	referred_by_signup_token: z.string(),
+	removed_date: z.date(),
+	removed_priority: z.string(),
+	uuid: z.string(),
+	verified: z.boolean(),
+	answers: z
+		.object({
+			question_value: z.string(),
+			optional: z.boolean(),
+			answer_value: z.string(),
+		})
+		.array(),
+	phone: z.string(),
+	first_name: z.string(),
+	last_name: z.string(),
+	metadata: z.object({}),
+	waitlist_id: z.number(),
+});
+
 export const WaitlistForm = () => {
 	const jsConfettiRef = useRef<JSConfetti>();
 
@@ -52,12 +78,39 @@ export const WaitlistForm = () => {
 				}),
 			});
 
-			if (res.ok) {
-				if (jsConfettiRef.current) {
-					await jsConfettiRef.current.addConfetti();
-				}
-			} else {
+			if (!res.ok) {
 				throw new Error('Failed to sign up');
+			}
+
+			const res2 = await fetch(
+				'https://connect.mailerlite.com/api/subscribers',
+				{
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json',
+						Accept: 'application/json',
+						Authorization: `Bearer ${process.env.NEXT_PUBLIC_MAILERLITE_API_TOKEN}`,
+					},
+					body: JSON.stringify({
+						email: data.email,
+						fields: {
+							name: data.first_name,
+							last_name: data.last_name,
+						},
+						groups: [process.env.NEXT_PUBLIC_MAILERLITE_GROUP_ID],
+					}),
+				},
+			);
+
+			if (!res2.ok) {
+				throw new Error('Failed to sign up to Mailerlite');
+			}
+
+			return successSubmitResponseSchema.parse(await res.json());
+		},
+		onSuccess: async () => {
+			if (jsConfettiRef.current) {
+				await jsConfettiRef.current.addConfetti();
 			}
 		},
 	});
@@ -133,7 +186,12 @@ export const WaitlistForm = () => {
 								<div className="flex items-center justify-center space-y-1 leading-none">
 									<FormLabel>
 										I have read the{' '}
-										<Link href="/privacy-policy">privacy policy</Link>
+										<Link
+											href={{ pathname: '/privacy-policy' }}
+											className="font-semibold"
+										>
+											privacy policy
+										</Link>
 									</FormLabel>
 								</div>
 							</div>
