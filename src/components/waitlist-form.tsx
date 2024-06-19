@@ -18,11 +18,16 @@ import JSConfetti from 'js-confetti';
 import { useEffect, useRef } from 'react';
 import { useMutation } from '@tanstack/react-query';
 import { Loader2 } from 'lucide-react';
+import { Checkbox } from '@/components/ui/checkbox';
+import Link from 'next/link';
 
 const waitlistFormSchema = z.object({
 	first_name: z.string().min(2, { message: 'First name is too short' }),
 	last_name: z.string().min(2, { message: 'Last name is too short' }),
 	email: z.string().email(),
+	agreement: z.literal(true, {
+		message: 'You must agree to the privacy policy',
+	}),
 });
 
 export const WaitlistForm = () => {
@@ -112,6 +117,31 @@ export const WaitlistForm = () => {
 						</FormItem>
 					)}
 				/>
+
+				<FormField
+					control={form.control}
+					name="agreement"
+					render={({ field }) => (
+						<FormItem className="flex flex-col items-start space-x-3 space-y-0">
+							<div className="flex space-x-3 space-y-0">
+								<FormControl>
+									<Checkbox
+										checked={field.value}
+										onCheckedChange={field.onChange}
+									/>
+								</FormControl>
+								<div className="flex items-center justify-center space-y-1 leading-none">
+									<FormLabel>
+										I have read the{' '}
+										<Link href="/privacy-policy">privacy policy</Link>
+									</FormLabel>
+								</div>
+							</div>
+							<FormMessage />
+						</FormItem>
+					)}
+				/>
+
 				<Button
 					type="submit"
 					variant={isSuccess ? 'secondary' : 'default'}
